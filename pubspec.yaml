@@ -9,12 +9,16 @@ dependencies:
   carousel_slider: ^4.0.0
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
+  date_picker_timeline: ^1.2.3
   floating_action_bubble: ^1.1.4
   flutter:
     sdk: flutter
+  flutter_local_notifications: ^9.4.0
   font_awesome_flutter: ^10.1.0
   get: 4.6.1
+  get_storage: ^2.0.3
   google_fonts: ^2.3.1
+  timezone: ^0.8.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0

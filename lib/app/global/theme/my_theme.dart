@@ -16,8 +16,10 @@ class Themes {
       colorScheme: ColorScheme.fromSwatch().copyWith(secondary: mycolAccent));
 
   static final dark = ThemeData(
-      backgroundColor: darkcolAccent,
-      primaryColor: darkGreyClr,
-      brightness: Brightness.dark,
-      iconTheme: myIconStyleDark());
+    backgroundColor: darkcolAccent,
+    primaryColor: darkGreyClr,
+    brightness: Brightness.dark,
+    iconTheme: myIconStyleDark(),
+    appBarTheme: myAppBarStyleDark(),
+  );
 }

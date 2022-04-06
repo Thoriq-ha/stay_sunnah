@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'my_color.dart';
 
-AppBarTheme myAppBarStyle() => const AppBarTheme(backgroundColor: primaryClr);
+AppBarTheme myAppBarStyle() => const AppBarTheme(
+      iconTheme: IconThemeData(color: Colors.black),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    );
+AppBarTheme myAppBarStyleDark() => const AppBarTheme(
+      iconTheme: IconThemeData(color: white),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    );
 
 InputDecorationTheme myInputDecorationStyle() {
   return InputDecorationTheme(
@@ -29,6 +38,4 @@ ElevatedButtonThemeData myElevatedButtonThemeStyle() {
   );
 }
 
-Widget verticalSpace(double h) {
-  return SizedBox(height: h);
-}
+Widget verticalSpace(double h) => SizedBox(height: h);

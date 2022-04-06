@@ -3,6 +3,7 @@ import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:stay_sunnah/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -13,8 +14,24 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HomeView'),
-        centerTitle: true,
+        leading: GestureDetector(
+          onTap: () {
+            controller.appC.switchTheme();
+          },
+          child: Icon(
+            Get.isDarkMode ? Icons.wb_sunny_outlined : Icons.nightlight_round,
+            size: 20,
+            color: Get.isDarkMode ? Colors.white : Colors.black,
+          ),
+        ),
+        actions: const [
+          // CircleAvatar(
+          //   backgroundImage: AssetImage("images/profile.png"),
+          // ),
+          SizedBox(
+            width: 20,
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 18),
@@ -77,14 +94,15 @@ class HomeView extends GetView<HomeController> {
           ),
           // Floating action menu item
           Bubble(
-            title: "Alarm",
+            title: "Atur Sunnah",
             iconColor: Theme.of(context).primaryColor,
             bubbleColor: Theme.of(context).colorScheme.secondary,
             icon: FontAwesomeIcons.clock,
             titleStyle:
                 TextStyle(fontSize: 14, color: Theme.of(context).primaryColor),
             onPress: () {
-              controller.animationController.reverse();
+              // controller.animationController.reverse();
+              Get.toNamed(Routes.SUNNAH);
             },
           ),
         ],

@@ -8,9 +8,11 @@ abstract class Routes {
 
   static const HOME = _Paths.HOME;
   static const PROFILE = _Paths.PROFILE;
+  static const SUNNAH = _Paths.SUNNAH;
 }
 
 abstract class _Paths {
   static const HOME = '/home';
   static const PROFILE = '/profile';
+  static const SUNNAH = '/sunnah';
 }

@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:stay_sunnah/app/modules/home/controllers/tab_controllers/tab_home_c.dart';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -51,8 +53,9 @@ List<Widget> imageSliders(double height) {
       .toList();
 }
 
-class ItemHome extends StatelessWidget {
-  const ItemHome({Key? key}) : super(key: key);
+class ItemHome extends GetView<TabHomeController> {
+  ItemHome({Key? key}) : super(key: key);
+  final appC = Get.put(TabHomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -63,14 +66,21 @@ class ItemHome extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text('data'),
+          ElevatedButton(
+              onPressed: () {
+                appC.displayNotification(
+                    title: "Theme Changed",
+                    body: Get.isDarkMode
+                        ? "Activated Light Mode"
+                        : "Activated Dark Mode");
+                appC.scheduledNotification();
+              },
+              child: const Text('Tess Notif')),
           CarouselSlider(
               options: CarouselOptions(
                 height: carouselH,
                 autoPlay: true,
-                // aspectRatio: 0.6,
                 viewportFraction: 1.0,
-                // enlargeCenterPage: true,
-                // enlargeStrategy: CenterPageEnlargeStrategy.height,
               ),
               items: imageSliders(carouselH)),
         ],
