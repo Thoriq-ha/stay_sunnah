@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/doa_model.dart';
+import '../../../../data/remote/models/doa_model.dart';
 import '../../../../global/theme/my_component_style.dart';
 import '../../../../global/theme/my_text_style.dart';
 

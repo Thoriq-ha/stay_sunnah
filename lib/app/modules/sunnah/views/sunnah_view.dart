@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:stay_sunnah/app/routes/app_pages.dart';
 
 import '../../../global/theme/my_text_style.dart';
 import '../controllers/sunnah_controller.dart';
@@ -46,7 +47,7 @@ _addTaskBar() {
             )
           ],
         ),
-        MyButton(label: "+ Add Task", onTap: () {})
+        MyButton(label: "+ Add Task", onTap: () => Get.toNamed(Routes.ADD))
       ],
     ),
   );

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import '../../../../data/models/doa_model.dart';
-import '../../../../data/providers/doa_provider.dart';
+
+import '../../../../data/remote/models/doa_model.dart';
+import '../../../../data/remote/providers/doa_provider.dart';
 
 class TabDoaController extends GetxController with StateMixin<List<Doa>> {
   @override

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-import '../../../../data/models/bacaan_sholat_model.dart';
-import '../../../../data/providers/bacaan_sholat_provider.dart';
+import '../../../../data/remote/models/bacaan_sholat_model.dart';
+import '../../../../data/remote/providers/bacaan_sholat_provider.dart';
 
 class TabBacaanSholatController extends GetxController
     with StateMixin<List<BacaanSholat>> {
