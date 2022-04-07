@@ -65,7 +65,6 @@ class ItemHome extends GetView<TabHomeController> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text('data'),
           ElevatedButton(
               onPressed: () {
                 appC.displayNotification(

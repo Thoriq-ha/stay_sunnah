@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'my_color.dart';
 
 AppBarTheme myAppBarStyle() => const AppBarTheme(
+      centerTitle: true,
       iconTheme: IconThemeData(color: Colors.black),
+      foregroundColor: Colors.black,
       backgroundColor: Colors.transparent,
       elevation: 0,
     );
 AppBarTheme myAppBarStyleDark() => const AppBarTheme(
+      centerTitle: true,
       iconTheme: IconThemeData(color: white),
+      foregroundColor: Colors.white,
       backgroundColor: Colors.transparent,
       elevation: 0,
     );

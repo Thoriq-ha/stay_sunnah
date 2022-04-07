@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:stay_sunnah/app/modules/sunnah/controllers/sunnah_controller.dart';
 
-import '../../../data/local/task.dart';
+import '../../../data/local/task_schema.dart';
 import '../../../global/theme/my_color.dart';
 import '../../../global/theme/my_text_style.dart';
 import '../../sunnah/views/widgets/button.dart';
 import '../../sunnah/views/widgets/input_field.dart';
-import '../controllers/add_controller.dart';
 
-class AddView extends GetView<AddController> {
+class AddView extends GetView<SunnahController> {
   String _endTime = "9:30 PM";
   String _startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
   int _selectedRemind = 5;
   List<int> remindList = [5, 10, 15, 20];
 
   List<String> repeatList = [
-    "None",
-    "Daily",
-    "Weekly",
-    "Monthly",
+    "Ngaji",
+    "Sholat Tahajud",
+    "Sholat Dhuha",
+    "Sedekah",
   ];
+
+  AddView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +30,49 @@ class AddView extends GetView<AddController> {
       backgroundColor: context.theme.backgroundColor,
       appBar: AppBar(),
       body: Container(
-        padding: const EdgeInsets.only(left: 20, right: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 32),
         child: Obx(() {
           return SingleChildScrollView(
             child: Column(
               children: [
                 Text(
-                  "Add Task",
+                  "Stay Sunnah Task",
                   style: headingStyle,
                 ),
                 MyInputField(
                   title: "Title",
                   hint: "Enter your title",
                   controller: controller.titleController,
+                ),
+                MyInputField(
+                  title: "Amalan",
+                  hint: "${controller.selectedRepeat}",
+                  widget: DropdownButton(
+                      icon: const Icon(
+                        Icons.keyboard_arrow_down,
+                        color: Colors.grey,
+                      ),
+                      iconSize: 32,
+                      elevation: 4,
+                      style: subTitleStyle,
+                      underline: Container(
+                        height: 0,
+                      ),
+                      onChanged: (String? newValue) {
+                        controller.selectedRepeat.value = newValue!;
+                      },
+                      items: repeatList
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        );
+                      }).toList()),
                 ),
                 MyInputField(
                   title: "Note",
@@ -51,7 +83,7 @@ class AddView extends GetView<AddController> {
                   title: "Date",
                   hint: DateFormat.yMd().format(controller.selectedDate.value),
                   widget: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.calendar_today_outlined,
                         color: Colors.grey,
                       ),
@@ -70,14 +102,14 @@ class AddView extends GetView<AddController> {
                             _getTimeFromUser(
                                 isStartTime: true, context: context);
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.access_time_rounded,
                             color: Colors.grey,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 12,
                     ),
                     Expanded(
@@ -89,7 +121,7 @@ class AddView extends GetView<AddController> {
                             _getTimeFromUser(
                                 isStartTime: false, context: context);
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.access_time_rounded,
                             color: Colors.grey,
                           ),
@@ -102,7 +134,7 @@ class AddView extends GetView<AddController> {
                   title: "Remind",
                   hint: "$_selectedRemind minutes early",
                   widget: DropdownButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.keyboard_arrow_down,
                         color: Colors.grey,
                       ),
@@ -125,40 +157,8 @@ class AddView extends GetView<AddController> {
                         );
                       }).toList()),
                 ),
-                Obx(
-                  () => MyInputField(
-                    title: "Note",
-                    hint: "${controller.selectedRepeat}",
-                    widget: DropdownButton(
-                        icon: Icon(
-                          Icons.keyboard_arrow_down,
-                          color: Colors.grey,
-                        ),
-                        iconSize: 32,
-                        elevation: 4,
-                        style: subTitleStyle,
-                        underline: Container(
-                          height: 0,
-                        ),
-                        onChanged: (String? newValue) {
-                          controller.selectedRepeat.value = newValue!;
-                        },
-                        items: repeatList
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                          );
-                        }).toList()),
-                  ),
-                ),
-                SizedBox(
-                  height: 18,
+                const SizedBox(
+                  height: 38,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -166,9 +166,15 @@ class AddView extends GetView<AddController> {
                   children: [
                     _colorPallete(),
                     MyButton(
-                        label: "Create Task", onTap: () => _validateDate()),
+                        label: "Create Task",
+                        onTap: () {
+                          _validateDate();
+                        }),
                   ],
-                )
+                ),
+                const SizedBox(
+                  height: 38,
+                ),
               ],
             ),
           );
@@ -182,6 +188,7 @@ class AddView extends GetView<AddController> {
         controller.noteController.text.isNotEmpty) {
       // add to database
       _addTaskToDB();
+      controller.refreshSunnah();
       Get.back();
     } else if (controller.titleController.text.isEmpty ||
         controller.noteController.text.isEmpty) {
@@ -191,7 +198,7 @@ class AddView extends GetView<AddController> {
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.white,
         colorText: pinkClr,
-        icon: Icon(
+        icon: const Icon(
           Icons.warning_amber_rounded,
           color: Colors.red,
         ),
@@ -221,7 +228,7 @@ class AddView extends GetView<AddController> {
         "Color",
         style: titleStyle,
       ),
-      SizedBox(
+      const SizedBox(
         height: 8.0,
       ),
       Obx(() {
@@ -241,7 +248,7 @@ class AddView extends GetView<AddController> {
                           ? pinkClr
                           : Colors.yellow,
                   child: controller.selectedColor.value == index
-                      ? Icon(
+                      ? const Icon(
                           Icons.done,
                           color: Colors.white,
                           size: 16,

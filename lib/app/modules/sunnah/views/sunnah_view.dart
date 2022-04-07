@@ -18,12 +18,46 @@ class SunnahView extends GetView<SunnahController> {
     return Scaffold(
       backgroundColor: context.theme.backgroundColor,
       appBar: AppBar(),
-      body: Column(
-        children: [
-          _addTaskBar(),
-          _addDateBar(context, controller),
-        ],
-      ),
+      body: controller.obx((state) {
+        return Column(
+          children: [
+            _addTaskBar(),
+            _addDateBar(context, controller),
+            Flexible(
+              // height: MediaQuery.of(context).size.height,
+              child: ListView.builder(
+                itemCount: state?.length,
+                itemBuilder: (context, index) => Card(
+                  color: Colors.orange[200],
+                  margin: const EdgeInsets.all(15),
+                  child: ListTile(
+                      title: Text(state![index]['title']),
+                      subtitle: Text(
+                          '${state[index]['note']} ${state[index]['date']}'),
+                      trailing: SizedBox(
+                        width: 100,
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.edit),
+                              onPressed: () => () {},
+                              // onPressed: () => _showForm(controller.listTask[index]['id']),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete),
+                              // onPressed: () {},
+                              onPressed: () => controller
+                                  .deleteItem(controller.listTask[index]['id']),
+                            ),
+                          ],
+                        ),
+                      )),
+                ),
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }

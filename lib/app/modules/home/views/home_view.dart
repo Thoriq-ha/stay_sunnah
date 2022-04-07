@@ -1,5 +1,4 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -14,6 +13,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Stay Sunnah !'),
         leading: IconButton(
           onPressed: () => controller.appC.switchTheme(),
           icon: Icon(
@@ -30,11 +30,7 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
       endDrawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
@@ -46,19 +42,12 @@ class HomeView extends GetView<HomeController> {
             ListTile(
               title: const Text('Set Sunnah'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Get.toNamed(Routes.SUNNAH);
-                // Navigator.pop(context);
               },
             ),
             ListTile(
               title: const Text('Item 2'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
               },
             ),
@@ -90,65 +79,6 @@ class HomeView extends GetView<HomeController> {
           },
         ),
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
-      //Init Floating Action Bubble
-      // floatingActionButton: FloatingActionBubble(
-      //   // Menu items
-      //   items: <Bubble>[
-      //     // Floating action menu item
-      //     Bubble(
-      //       title: "Settings",
-      //       iconColor: Theme.of(context).primaryColor,
-      //       bubbleColor: Theme.of(context).colorScheme.secondary,
-      //       icon: Icons.settings,
-      //       titleStyle:
-      //           TextStyle(fontSize: 14, color: Theme.of(context).primaryColor),
-      //       onPress: () {
-      //         controller.animationController.reverse();
-      //       },
-      //     ), //Floating action menu item
-      //     Bubble(
-      //       title: "Bookmark",
-      //       iconColor: Theme.of(context).primaryColor,
-      //       bubbleColor: Theme.of(context).colorScheme.secondary,
-      //       icon: FontAwesomeIcons.bookBookmark,
-      //       titleStyle:
-      //           TextStyle(fontSize: 14, color: Theme.of(context).primaryColor),
-      //       onPress: () {
-      //         controller.animationController.reverse();
-      //       },
-      //     ),
-      //     // Floating action menu item
-      //     Bubble(
-      //       title: "Atur Sunnah",
-      //       iconColor: Theme.of(context).primaryColor,
-      //       bubbleColor: Theme.of(context).colorScheme.secondary,
-      //       icon: FontAwesomeIcons.clock,
-      //       titleStyle:
-      //           TextStyle(fontSize: 14, color: Theme.of(context).primaryColor),
-      //       onPress: () {
-      //         // controller.animationController.reverse();
-      //         Get.toNamed(Routes.SUNNAH);
-      //       },
-      //     ),
-      //   ],
-
-      //   // animation controller
-      //   animation: controller.animation,
-
-      //   // On pressed change animation state
-      //   onPress: () => controller.animationController.isCompleted
-      //       ? controller.animationController.reverse()
-      //       : controller.animationController.forward(),
-
-      //   // Floating Action button Icon color
-      //   iconColor: Theme.of(context).primaryColor,
-
-      //   // Flaoting Action button Icon
-      //   iconData: FontAwesomeIcons.mosque,
-      //   backGroundColor: Theme.of(context).colorScheme.secondary,
-      // ),
     );
   }
 }
