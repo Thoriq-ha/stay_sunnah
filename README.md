@@ -1,8 +1,9 @@
 <br />
 <div align="center">
 
-## Stay, Stay Sunnah
- # Aplikasi Reminder Ibadah Sunnah
+# STAYSUN
+## Stay Sunnah
+### Aplikasi Reminder Ibadah Sunnah
 
 [Getx, Sqflite, Firebase, Push Notification, Dark Mode]
 ### Installation
