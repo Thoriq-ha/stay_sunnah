@@ -1,16 +1,23 @@
-# stay_sunnah
+<br />
+<div align="center">
 
-A new Flutter project.
+## Stay, Stay Sunnah
+ # Aplikasi Reminder Ibadah Sunnah
 
-## Getting Started
+[Getx, Sqflite, Firebase, Push Notification, Dark Mode]
+### Installation
 
-This project is a starting point for a Flutter application.
+_Below is a tutorial of how to use this app.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone the repo
+   ```sh
+   git clone https://github.com/Thoriq-ha/stay_sunnah.git
+   ```
+2. Run pub get
+   ```sh
+   flutter pub get
+   ```
+3. Run this project
+   ```sh
+   flutter run
+   ```
