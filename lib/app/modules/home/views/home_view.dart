@@ -101,7 +101,7 @@ class HomeView extends GetView<HomeController> {
           ],
           index: controller.indexTab.value,
           backgroundColor: Colors.transparent,
-          buttonBackgroundColor: Theme.of(context).primaryColor,
+          buttonBackgroundColor: Colors.black87,
           color: Theme.of(context).primaryColor,
           onTap: (index) {
             controller.updatePage(index);
