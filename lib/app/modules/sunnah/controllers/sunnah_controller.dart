@@ -11,7 +11,6 @@ import '../../../data/local/task_schema.dart';
 class SunnahController extends GetxController
     with StateMixin<List<Map<String, dynamic>>> {
   List<Map<String, dynamic>> listTask = [];
-
   final TextEditingController titleController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
   final Rx<DateTime> selectedDate = DateTime.now().obs;
@@ -35,8 +34,11 @@ class SunnahController extends GetxController
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin(); //
 
-  Future<int> addTask({Task? task}) async {
-    return await DBHelper.createItem(task!);
+  Future<int> addTask(Task task) async {
+    return await DBHelper.createItem(task).then((value) {
+      setNotification(task.repeat);
+      return value;
+    });
   }
 
   Future<int> editTask(Task task, int id) async {
@@ -56,6 +58,13 @@ class SunnahController extends GetxController
     NotifyHelper().initializeNotification();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    titleController.dispose();
+    noteController.dispose();
+  }
+
   void refreshSunnah() async {
     final data = await DBHelper.getItems();
     listTask = data;
@@ -69,14 +78,22 @@ class SunnahController extends GetxController
     refreshSunnah();
   }
 
-  void setNotification() {
+  void setNotification(String? task) {
     print(_getTimeScheduled());
-    NotifyHelper().scheduledNotification(_getTimeScheduled());
+    NotifyHelper().scheduledNotification(_getTimeScheduled(), task!);
   }
 
   DateTime _getTimeScheduled() {
-    int hour = int.parse(startTime.split(":")[0]);
+    int hour;
+    if (startTime.split(" ")[1] == "am") {
+      hour = int.parse(startTime.split(":")[0]);
+    } else {
+      hour = int.parse(startTime.split(":")[0]) + 12;
+    }
     int minute = int.parse(startTime.split(":")[1].split(" ")[0]);
+
+    print(DateTime(selectedDate.value.year, selectedDate.value.month,
+        selectedDate.value.day, hour, minute));
     return DateTime(selectedDate.value.year, selectedDate.value.month,
         selectedDate.value.day, hour, minute);
   }

@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:stay_sunnah/app/global/theme/my_component_style.dart';
-import 'package:stay_sunnah/app/global/theme/my_theme.dart';
 import 'package:stay_sunnah/app/routes/app_pages.dart';
 
 import '../../../global/theme/my_color.dart';
@@ -61,13 +59,11 @@ class SunnahView extends GetView<SunnahController> {
                             children: [
                               IconButton(
                                 icon: const Icon(Icons.edit),
-                                // onPressed: () => () {},
                                 onPressed: () => controller
                                     .showForm(controller.listTask[index]),
                               ),
                               IconButton(
                                 icon: const Icon(Icons.delete),
-                                // onPressed: () {},
                                 onPressed: () => controller.deleteItem(
                                     controller.listTask[index]['id']),
                               ),

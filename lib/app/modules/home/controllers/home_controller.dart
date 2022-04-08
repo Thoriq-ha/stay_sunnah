@@ -17,20 +17,6 @@ class HomeController extends GetxController
   late Animation<double> animation;
   late AnimationController animationController;
 
-  // void initialCurve() {
-  //   animationController = AnimationController(
-  //       duration: const Duration(milliseconds: 360), vsync: this);
-  //   final curvedAnimation =
-  //       CurvedAnimation(curve: Curves.easeInOut, parent: animationController);
-  //   animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
-  // }
-
-  @override
-  void onInit() {
-    // initialCurve();
-    super.onInit();
-  }
-
   @override
   void onClose() {
     _tabBacaan.dispose();

@@ -1,3 +1,3 @@
 class Images {
-  static const splash = "assets/images/dark.png";
+  static const profile = "assets/images/profile.png";
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:stay_sunnah/app/routes/app_pages.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -29,11 +30,7 @@ class NotifyHelper {
     } else {
       print("Notification Done");
     }
-    Get.to(
-      () => Container(
-        color: Colors.white,
-      ),
-    );
+    Get.toNamed(Routes.HOME);
   }
 
   displayNotification({
@@ -56,13 +53,12 @@ class NotifyHelper {
     );
   }
 
-  scheduledNotification(DateTime dateTime) async {
+  scheduledNotification(DateTime dateTime, String task) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
-        'scheduled title',
-        'theme changes 10 seconds ago',
+        'Sunnah Time',
+        'Waktunya menjalankan Ibadah Sunnah : $task',
         tz.TZDateTime.from(dateTime, tz.local),
-        // tz.TZDateTime.now(tz.local).add(const Duration(seconds: 30)),
         const NotificationDetails(
             android: AndroidNotificationDetails(
                 'your channel id', 'your channel name')),

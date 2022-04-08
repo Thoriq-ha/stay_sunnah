@@ -11,10 +11,7 @@ import '../../sunnah/views/widgets/button.dart';
 import '../../sunnah/views/widgets/input_field.dart';
 
 class AddView extends GetView<SunnahController> {
-  // String _endTime = "9:30 PM";
-  // String _startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
-
-  AddView({Key? key}) : super(key: key);
+  const AddView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +163,7 @@ class AddView extends GetView<SunnahController> {
                     children: [
                       _colorPallete(),
                       MyButton(
-                          label: "Create Task",
+                          label: "Save Task",
                           onTap: () {
                             _validateDate();
                           }),
@@ -212,8 +209,7 @@ class AddView extends GetView<SunnahController> {
   }
 
   _addTaskToDB() async {
-    int value = await controller.addTask(
-        task: Task(
+    int value = await controller.addTask(Task(
       note: controller.noteController.text,
       title: controller.titleController.text,
       date: DateFormat.yMd().format(controller.selectedDate.value),
@@ -319,7 +315,6 @@ class AddView extends GetView<SunnahController> {
       initialEntryMode: TimePickerEntryMode.input,
       context: context,
       initialTime: TimeOfDay(
-        // controller.startTime --> 10:30 AM
         hour: int.parse(controller.startTime.split(":")[0]),
         minute: int.parse(controller.startTime.split(":")[1].split(" ")[0]),
       ),
