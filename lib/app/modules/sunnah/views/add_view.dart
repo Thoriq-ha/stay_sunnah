@@ -13,173 +13,173 @@ import '../../sunnah/views/widgets/input_field.dart';
 class AddView extends GetView<SunnahController> {
   // String _endTime = "9:30 PM";
   // String _startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
-  int _selectedRemind = 5;
-  List<int> remindList = [5, 10, 15, 20];
-
-  List<String> repeatList = [
-    "Ngaji",
-    "Sholat Tahajud",
-    "Sholat Dhuha",
-    "Sedekah",
-  ];
 
   AddView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: context.theme.backgroundColor,
-      appBar: AppBar(),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
-        child: Obx(() {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Text(
-                  "Stay Sunnah Task",
-                  style: headingStyle,
-                ),
-                MyInputField(
-                  title: "Title",
-                  hint: "Enter your title",
-                  controller: controller.titleController,
-                ),
-                MyInputField(
-                  title: "Amalan",
-                  hint: "${controller.selectedRepeat}",
-                  widget: DropdownButton(
-                      icon: const Icon(
-                        Icons.keyboard_arrow_down,
-                        color: Colors.grey,
-                      ),
-                      iconSize: 32,
-                      elevation: 4,
-                      style: subTitleStyle,
-                      underline: Container(
-                        height: 0,
-                      ),
-                      onChanged: (String? newValue) {
-                        controller.selectedRepeat.value = newValue!;
-                      },
-                      items: repeatList
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: const TextStyle(
+    return WillPopScope(
+      onWillPop: () async {
+        controller.refreshSunnah();
+        Navigator.pop(context, false);
+        return Future.value(false);
+      },
+      child: Scaffold(
+        backgroundColor: context.theme.backgroundColor,
+        appBar: AppBar(),
+        body: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Obx(() {
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  Text(
+                    "Stay Sunnah Task",
+                    style: headingStyle,
+                  ),
+                  MyInputField(
+                    title: "Title",
+                    hint: "Enter your title",
+                    controller: controller.titleController,
+                  ),
+                  MyInputField(
+                    title: "Amalan",
+                    hint: "${controller.selectedRepeat}",
+                    widget: DropdownButton(
+                        icon: const Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Colors.grey,
+                        ),
+                        iconSize: 32,
+                        elevation: 4,
+                        style: subTitleStyle,
+                        underline: Container(
+                          height: 0,
+                        ),
+                        onChanged: (String? newValue) {
+                          controller.selectedRepeat.value = newValue!;
+                        },
+                        items: controller.repeatList
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: const TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          );
+                        }).toList()),
+                  ),
+                  MyInputField(
+                    title: "Note",
+                    hint: "Enter your note",
+                    controller: controller.noteController,
+                  ),
+                  MyInputField(
+                    title: "Date",
+                    hint:
+                        DateFormat.yMd().format(controller.selectedDate.value),
+                    widget: IconButton(
+                        icon: const Icon(
+                          Icons.calendar_today_outlined,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          _getDateFromUser(context);
+                        }),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: MyInputField(
+                          title: "Start Time",
+                          hint: controller.startTime.value,
+                          widget: IconButton(
+                            onPressed: () {
+                              _getTimeFromUser(
+                                  isStartTime: true, context: context);
+                            },
+                            icon: const Icon(
+                              Icons.access_time_rounded,
                               color: Colors.grey,
                             ),
                           ),
-                        );
-                      }).toList()),
-                ),
-                MyInputField(
-                  title: "Note",
-                  hint: "Enter your note",
-                  controller: controller.noteController,
-                ),
-                MyInputField(
-                  title: "Date",
-                  hint: DateFormat.yMd().format(controller.selectedDate.value),
-                  widget: IconButton(
-                      icon: const Icon(
-                        Icons.calendar_today_outlined,
-                        color: Colors.grey,
-                      ),
-                      onPressed: () {
-                        _getDateFromUser(context);
-                      }),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: MyInputField(
-                        title: "Start Time",
-                        hint: controller.startTime.value,
-                        widget: IconButton(
-                          onPressed: () {
-                            _getTimeFromUser(
-                                isStartTime: true, context: context);
-                          },
-                          icon: const Icon(
-                            Icons.access_time_rounded,
-                            color: Colors.grey,
-                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Expanded(
-                      child: MyInputField(
-                        title: "End Time",
-                        hint: controller.endTime.value,
-                        widget: IconButton(
-                          onPressed: () {
-                            _getTimeFromUser(
-                                isStartTime: false, context: context);
-                          },
-                          icon: const Icon(
-                            Icons.access_time_rounded,
-                            color: Colors.grey,
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      Expanded(
+                        child: MyInputField(
+                          title: "End Time",
+                          hint: controller.endTime.value,
+                          widget: IconButton(
+                            onPressed: () {
+                              _getTimeFromUser(
+                                  isStartTime: false, context: context);
+                            },
+                            icon: const Icon(
+                              Icons.access_time_rounded,
+                              color: Colors.grey,
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
-                MyInputField(
-                  title: "Remind",
-                  hint: "$_selectedRemind minutes early",
-                  widget: DropdownButton(
-                      icon: const Icon(
-                        Icons.keyboard_arrow_down,
-                        color: Colors.grey,
-                      ),
-                      iconSize: 32,
-                      elevation: 4,
-                      style: subTitleStyle,
-                      underline: Container(
-                        height: 0,
-                      ),
-                      onChanged: (String? newValue) {
-                        _selectedRemind = int.parse(newValue!);
-                      },
-                      items:
-                          remindList.map<DropdownMenuItem<String>>((int value) {
-                        return DropdownMenuItem<String>(
-                          value: value.toString(),
-                          child: Text(
-                            value.toString(),
-                          ),
-                        );
-                      }).toList()),
-                ),
-                const SizedBox(
-                  height: 38,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    _colorPallete(),
-                    MyButton(
-                        label: "Create Task",
-                        onTap: () {
-                          _validateDate();
-                        }),
-                  ],
-                ),
-                const SizedBox(
-                  height: 38,
-                ),
-              ],
-            ),
-          );
-        }),
+                      )
+                    ],
+                  ),
+                  MyInputField(
+                    title: "Remind",
+                    hint: "${controller.selectedRemind} minutes early",
+                    widget: DropdownButton(
+                        icon: const Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Colors.grey,
+                        ),
+                        iconSize: 32,
+                        elevation: 4,
+                        style: subTitleStyle,
+                        underline: Container(
+                          height: 0,
+                        ),
+                        onChanged: (String? newValue) {
+                          controller.selectedRemind.value =
+                              int.parse(newValue!);
+                        },
+                        items: controller.remindList
+                            .map<DropdownMenuItem<String>>((int value) {
+                          return DropdownMenuItem<String>(
+                            value: value.toString(),
+                            child: Text(
+                              value.toString(),
+                            ),
+                          );
+                        }).toList()),
+                  ),
+                  const SizedBox(
+                    height: 38,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _colorPallete(),
+                      MyButton(
+                          label: "Create Task",
+                          onTap: () {
+                            _validateDate();
+                          }),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 38,
+                  ),
+                ],
+              ),
+            );
+          }),
+        ),
       ),
     );
   }
@@ -187,9 +187,12 @@ class AddView extends GetView<SunnahController> {
   _validateDate() {
     if (controller.titleController.text.isNotEmpty &&
         controller.noteController.text.isNotEmpty) {
-      // add to database
-      _addTaskToDB();
-      controller.setNotification();
+      // add to database if id == -1 mean id is not selected
+      if (controller.currentId == -1) {
+        _addTaskToDB();
+      } else {
+        _updateTaskToDB();
+      }
       controller.refreshSunnah();
       Get.back();
     } else if (controller.titleController.text.isEmpty ||
@@ -216,11 +219,29 @@ class AddView extends GetView<SunnahController> {
       date: DateFormat.yMd().format(controller.selectedDate.value),
       startTime: controller.startTime.value,
       endTime: controller.endTime.value,
-      remind: _selectedRemind,
+      remind: controller.selectedRemind.value,
       repeat: controller.selectedRepeat.value,
       color: controller.selectedColor.value,
       isCompleted: 0,
     ));
+    print("check id : $value");
+  }
+
+  _updateTaskToDB() async {
+    int value = await controller.editTask(
+        Task(
+          id: controller.currentId,
+          note: controller.noteController.text,
+          title: controller.titleController.text,
+          date: DateFormat.yMd().format(controller.selectedDate.value),
+          startTime: controller.startTime.value,
+          endTime: controller.endTime.value,
+          remind: controller.selectedRemind.value,
+          repeat: controller.selectedRepeat.value,
+          color: controller.selectedColor.value,
+          isCompleted: 0,
+        ),
+        controller.currentId);
     print("check id : $value");
   }
 

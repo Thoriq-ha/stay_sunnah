@@ -58,4 +58,12 @@ class DBHelper {
       debugPrint("Something went wrong when deleting an item: $err");
     }
   }
+
+  // Update an item by id
+  static Future<int> updateItem(int id, Task data) async {
+    final db = await DBHelper.db();
+    final result = await db
+        .update(_tableName, data.toJson(), where: "id = ?", whereArgs: [id]);
+    return result;
+  }
 }

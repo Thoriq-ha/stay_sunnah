@@ -14,14 +14,24 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Stay Sunnah !'),
-        leading: IconButton(
-          onPressed: () => controller.appC.switchTheme(),
-          icon: Icon(
-            Get.isDarkMode ? Icons.wb_sunny_outlined : Icons.nightlight_round,
-            size: 20,
-            color: Get.isDarkMode ? Colors.white : Colors.black,
+        actions: [
+          IconButton(
+            onPressed: () => Get.toNamed(Routes.SUNNAH),
+            icon: Icon(
+              FontAwesomeIcons.kaaba,
+              size: 20,
+              color: Get.isDarkMode ? Colors.white : Colors.black,
+            ),
           ),
-        ),
+          IconButton(
+            onPressed: () => controller.appC.switchTheme(),
+            icon: Icon(
+              Get.isDarkMode ? Icons.wb_sunny_outlined : Icons.nightlight_round,
+              size: 20,
+              color: Get.isDarkMode ? Colors.white : Colors.black,
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 18),
@@ -29,7 +39,7 @@ class HomeView extends GetView<HomeController> {
           (() => controller.myItemViewBuilder(controller.indexTab.value)),
         ),
       ),
-      endDrawer: Drawer(
+      drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -62,7 +72,7 @@ class HomeView extends GetView<HomeController> {
               size: 26,
             ),
             FaIcon(
-              FontAwesomeIcons.kaaba,
+              FontAwesomeIcons.book,
               size: 26,
             ),
             FaIcon(
@@ -72,8 +82,8 @@ class HomeView extends GetView<HomeController> {
           ],
           index: controller.indexTab.value,
           backgroundColor: Colors.transparent,
-          buttonBackgroundColor: Theme.of(context).colorScheme.secondary,
-          color: Theme.of(context).colorScheme.secondary,
+          buttonBackgroundColor: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColor,
           onTap: (index) {
             controller.updatePage(index);
           },

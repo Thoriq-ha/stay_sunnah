@@ -61,8 +61,9 @@ class SunnahView extends GetView<SunnahController> {
                             children: [
                               IconButton(
                                 icon: const Icon(Icons.edit),
-                                onPressed: () => () {},
-                                // onPressed: () => _showForm(controller.listTask[index]['id']),
+                                // onPressed: () => () {},
+                                onPressed: () => controller
+                                    .showForm(controller.listTask[index]),
                               ),
                               IconButton(
                                 icon: const Icon(Icons.delete),

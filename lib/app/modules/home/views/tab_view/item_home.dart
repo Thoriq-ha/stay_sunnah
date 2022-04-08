@@ -65,16 +65,6 @@ class ItemHome extends GetView<TabHomeController> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ElevatedButton(
-              onPressed: () {
-                tabC.displayNotification(
-                    title: "Theme Changed",
-                    body: Get.isDarkMode
-                        ? "Activated Light Mode"
-                        : "Activated Dark Mode");
-                tabC.scheduledNotification();
-              },
-              child: const Text('Tess Notif')),
           CarouselSlider(
               options: CarouselOptions(
                 height: carouselH,

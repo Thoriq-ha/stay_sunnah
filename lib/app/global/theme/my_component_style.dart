@@ -26,8 +26,8 @@ InputDecorationTheme myInputDecorationStyle() {
 
 FloatingActionButtonThemeData myFloatingActionButtonStyle() =>
     const FloatingActionButtonThemeData(backgroundColor: primaryClr);
-IconThemeData myIconStyle() => const IconThemeData(color: primaryClr);
-IconThemeData myIconStyleDark() => const IconThemeData(color: darkcolAccent);
+IconThemeData myIconStyle() => const IconThemeData(color: Colors.white);
+IconThemeData myIconStyleDark() => const IconThemeData(color: Colors.white70);
 
 ElevatedButtonThemeData myElevatedButtonThemeStyle() {
   return ElevatedButtonThemeData(
