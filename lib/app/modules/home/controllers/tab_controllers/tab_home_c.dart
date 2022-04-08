@@ -69,7 +69,7 @@ class TabHomeController extends GetxController {
         0,
         'scheduled title',
         'theme changes 5 seconds ago',
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+        tz.TZDateTime.now(tz.local).subtract(const Duration(seconds: 5)),
         const NotificationDetails(
             android: AndroidNotificationDetails(
                 'your channel id', 'your channel name')),

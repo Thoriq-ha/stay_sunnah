@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -58,12 +56,13 @@ class NotifyHelper {
     );
   }
 
-  scheduledNotification() async {
+  scheduledNotification(DateTime dateTime) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
         'scheduled title',
         'theme changes 10 seconds ago',
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 30)),
+        tz.TZDateTime.from(dateTime, tz.local),
+        // tz.TZDateTime.now(tz.local).add(const Duration(seconds: 30)),
         const NotificationDetails(
             android: AndroidNotificationDetails(
                 'your channel id', 'your channel name')),

@@ -19,11 +19,9 @@ AppBarTheme myAppBarStyleDark() => const AppBarTheme(
 
 InputDecorationTheme myInputDecorationStyle() {
   return InputDecorationTheme(
-      border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),
-          borderSide: BorderSide.none),
-      filled: true,
-      fillColor: Colors.grey.withOpacity(0.1));
+    border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.0), borderSide: BorderSide.none),
+  );
 }
 
 FloatingActionButtonThemeData myFloatingActionButtonStyle() =>

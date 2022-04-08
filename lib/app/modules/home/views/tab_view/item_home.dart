@@ -55,7 +55,7 @@ List<Widget> imageSliders(double height) {
 
 class ItemHome extends GetView<TabHomeController> {
   ItemHome({Key? key}) : super(key: key);
-  final appC = Get.put(TabHomeController());
+  final tabC = Get.put(TabHomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +67,12 @@ class ItemHome extends GetView<TabHomeController> {
         children: [
           ElevatedButton(
               onPressed: () {
-                appC.displayNotification(
+                tabC.displayNotification(
                     title: "Theme Changed",
                     body: Get.isDarkMode
                         ? "Activated Light Mode"
                         : "Activated Dark Mode");
-                appC.scheduledNotification();
+                tabC.scheduledNotification();
               },
               child: const Text('Tess Notif')),
           CarouselSlider(

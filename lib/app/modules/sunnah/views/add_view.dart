@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:stay_sunnah/app/global/services/notification_services.dart';
 import 'package:stay_sunnah/app/modules/sunnah/controllers/sunnah_controller.dart';
 
 import '../../../data/local/task_schema.dart';
@@ -10,8 +11,8 @@ import '../../sunnah/views/widgets/button.dart';
 import '../../sunnah/views/widgets/input_field.dart';
 
 class AddView extends GetView<SunnahController> {
-  String _endTime = "9:30 PM";
-  String _startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
+  // String _endTime = "9:30 PM";
+  // String _startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
   int _selectedRemind = 5;
   List<int> remindList = [5, 10, 15, 20];
 
@@ -96,7 +97,7 @@ class AddView extends GetView<SunnahController> {
                     Expanded(
                       child: MyInputField(
                         title: "Start Time",
-                        hint: _startTime,
+                        hint: controller.startTime.value,
                         widget: IconButton(
                           onPressed: () {
                             _getTimeFromUser(
@@ -115,7 +116,7 @@ class AddView extends GetView<SunnahController> {
                     Expanded(
                       child: MyInputField(
                         title: "End Time",
-                        hint: _endTime,
+                        hint: controller.endTime.value,
                         widget: IconButton(
                           onPressed: () {
                             _getTimeFromUser(
@@ -188,6 +189,7 @@ class AddView extends GetView<SunnahController> {
         controller.noteController.text.isNotEmpty) {
       // add to database
       _addTaskToDB();
+      controller.setNotification();
       controller.refreshSunnah();
       Get.back();
     } else if (controller.titleController.text.isEmpty ||
@@ -212,8 +214,8 @@ class AddView extends GetView<SunnahController> {
       note: controller.noteController.text,
       title: controller.titleController.text,
       date: DateFormat.yMd().format(controller.selectedDate.value),
-      startTime: _startTime,
-      endTime: _endTime,
+      startTime: controller.startTime.value,
+      endTime: controller.endTime.value,
       remind: _selectedRemind,
       repeat: controller.selectedRepeat.value,
       color: controller.selectedColor.value,
@@ -246,7 +248,7 @@ class AddView extends GetView<SunnahController> {
                       ? primaryClr
                       : index == 1
                           ? pinkClr
-                          : Colors.yellow,
+                          : Colors.green,
                   child: controller.selectedColor.value == index
                       ? const Icon(
                           Icons.done,
@@ -285,9 +287,9 @@ class AddView extends GetView<SunnahController> {
     if (pickedTime == null) {
       print("Time canceled");
     } else if (isStartTime == true) {
-      _startTime = _formatedTime;
+      controller.startTime.value = _formatedTime;
     } else if (isStartTime == false) {
-      _endTime = _formatedTime;
+      controller.endTime.value = _formatedTime;
     }
   }
 
@@ -296,9 +298,9 @@ class AddView extends GetView<SunnahController> {
       initialEntryMode: TimePickerEntryMode.input,
       context: context,
       initialTime: TimeOfDay(
-        // _startTime --> 10:30 AM
-        hour: int.parse(_startTime.split(":")[0]),
-        minute: int.parse(_startTime.split(":")[1].split(" ")[0]),
+        // controller.startTime --> 10:30 AM
+        hour: int.parse(controller.startTime.split(":")[0]),
+        minute: int.parse(controller.startTime.split(":")[1].split(" ")[0]),
       ),
     );
   }
