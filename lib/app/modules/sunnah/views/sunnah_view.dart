@@ -40,11 +40,11 @@ class SunnahView extends GetView<SunnahController> {
                 child: ListView.builder(
                   itemCount: state?.length,
                   itemBuilder: (context, index) => Card(
-                    margin: EdgeInsets.symmetric(vertical: 16),
+                    margin: const EdgeInsets.symmetric(vertical: 16),
                     color: state![index]['color'] == 0
                         ? primaryClr.withOpacity(0.7)
                         : state[index]['color'] == 1
-                            ? pinkClr.withOpacity(0.7)
+                            ? orangeClr.withOpacity(0.7)
                             : Colors.green.withOpacity(0.7),
                     child: ListTile(
                         title: Text(

@@ -9,10 +9,14 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const SUNNAH = _Paths.SUNNAH;
   static const ADD = _Paths.ADD;
+  static const KIBLAT = _Paths.KIBLAT;
+  static const MY_CAMERA = _Paths.MY_CAMERA;
 }
 
 abstract class _Paths {
   static const HOME = '/home';
   static const SUNNAH = '/sunnah';
   static const ADD = '/add';
+  static const KIBLAT = '/kiblat';
+  static const MY_CAMERA = '/my-camera';
 }

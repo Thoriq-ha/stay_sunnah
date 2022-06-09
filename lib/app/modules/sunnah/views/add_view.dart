@@ -1,7 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:stay_sunnah/app/global/services/notification_services.dart';
 import 'package:stay_sunnah/app/modules/sunnah/controllers/sunnah_controller.dart';
 
 import '../../../data/local/task_schema.dart';
@@ -199,7 +200,7 @@ class AddView extends GetView<SunnahController> {
         "All fields are required !",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.white,
-        colorText: pinkClr,
+        colorText: orangeClr,
         icon: const Icon(
           Icons.warning_amber_rounded,
           color: Colors.red,
@@ -264,7 +265,7 @@ class AddView extends GetView<SunnahController> {
                   backgroundColor: index == 0
                       ? primaryClr
                       : index == 1
-                          ? pinkClr
+                          ? orangeClr
                           : Colors.green,
                   child: controller.selectedColor.value == index
                       ? const Icon(

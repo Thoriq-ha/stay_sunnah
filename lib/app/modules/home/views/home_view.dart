@@ -75,6 +75,18 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             ListTile(
+              title: const Text('Arah Kiblat'),
+              onTap: () {
+                Get.toNamed(Routes.KIBLAT);
+              },
+            ),
+            ListTile(
+              title: const Text('Kamera'),
+              onTap: () {
+                Get.toNamed(Routes.MY_CAMERA);
+              },
+            ),
+            ListTile(
               title: const Text('Keluar'),
               onTap: () {
                 exit(0);
